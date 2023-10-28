@@ -1,33 +1,57 @@
-
-function getComputerChoice () {
-    const choice = Math.floor(Math.random() * 2);
-    if (choice === 0) {
-        return "Rock";
-    } else if (choice === 1) {
-        return "Paper";
-    } else {
-        return "Scissor";
-    }
+function getComputerChoice() {
+  const choice = Math.floor(Math.random() * 3);
+  if (choice === 1) {
+    return "rock";
+  } else if (choice === 2) {
+    return "paper";
+  } else {
+    return "scissor";
+  }
 }
 
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection === "Rock" && computerSelection === "Paper") {
-        return "You Lose!";
-    } else if (playerSelection === "Scissor" && computerSelection === "Rock") {
-        return "You Lose!";
-    } else if (playerSelection === "Paper" && computerSelection === "Scissor") {
-        return "You Lose!";
-    } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-        return "You Win!";
-    } else if (playerSelection === "Rock" && computerSelection === "Scissor") {
-        return "You Win!";
-    } else if (playerSelection === "Scissor" && computerSelection === "Paper") {
-        return "You Win!";
+  if (playerSelection === "rock" && computerSelection === "paper") {
+    ComputerScore++;
+  } else if (playerSelection === "scissor" && computerSelection === "rock") {
+    ComputerScore++;
+  } else if (playerSelection === "paper" && computerSelection === "scissor") {
+    ComputerScore++;
+  } else if (playerSelection === "paper" && computerSelection === "rock") {
+    playerScore++;
+  } else if (playerSelection === "rock" && computerSelection === "scissor") {
+    playerScore++;
+  } else if (playerSelection === "scissor" && computerSelection === "paper") {
+    playerScore++;
+  } else if (playerSelection === "paper" && computerSelection === "paper") {
+    draw++;
+  } else if (playerSelection === "rock" && computerSelection === "rock") {
+    draw++;
+  } else if (playerSelection === "scissor" && computerSelection === "scissor") {
+    draw++;
+  } else {
+    return "Unkown Keyword";
+  }
+}
+
+function game(e) {
+    if (e === "y") {
+        for (let i = 1; i <= round; i++) {
+            const playerSelection = prompt("Enter your bet: ");
+            const computerSelection = getComputerChoice();
+            playRound(playerSelection, computerSelection);
+        }
+        console.log("Player: " + playerScore + " Computer: " + ComputerScore + " Draw: " + draw);
+        playAgain = prompt("Wanna play again? (y/n)");
     } else {
-        return "Unkown Keyword"; 
+        console.log("Ok!");
     }
 }
 
-const playerSelection = "Rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+let round = 5;
+let playerScore = 0;
+let ComputerScore = 0;
+let draw = 0;
+let playAgain = prompt("Wanna play? (y/n)");
+game(playAgain);
+
+
